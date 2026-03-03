@@ -1,0 +1,19 @@
+<router-outlet></router-outlet>
+<div class="home-wrapper" *ngIf="userName">
+  <div class="home-card">
+
+    <div class="success-icon">✅</div>
+
+    <h2>Authentication Successful</h2>
+
+    <p>
+      Welcome <strong>{{ userName }}</strong>,
+      you have logged in successfully.
+    </p>
+
+     <button class="logout-btn" (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+</div>
