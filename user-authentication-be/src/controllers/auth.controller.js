@@ -11,14 +11,25 @@ exports.login = async (req, res) => {
       });
     }
 
-    if (email !== USER_CREDENTIALS.email) {
+    let userData = USER_CREDENTIALS.filter(user => user.email == email)
+
+    if (!userData.length) {
+        return res.status(401).json({
+            success: false,
+            message: 'Invalid credentials'
+        });
+    }
+
+    userData = userData[0]
+
+    if (email !== userData.email) {
       return res.status(401).json({
         success: false,
         message: 'Invalid credentials'
       });
     }
 
-    if (!password == USER_CREDENTIALS.password) {
+    if (password !== userData.password) {
       return res.status(401).json({
         success: false,
         message: 'Invalid credentials'
@@ -28,7 +39,7 @@ exports.login = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: 'Login successful',
-      userName: USER_CREDENTIALS['full_name']
+      userName: userData['full_name']
     });
 
   } catch (error) {
